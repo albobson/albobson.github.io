@@ -3,10 +3,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main] # Change this to your main branch name if necessary
+    branches: [main]
   workflow_dispatch:
 
-# Sets permissions to allow the GitHub Action to create a deployment
 permissions:
   contents: read
   pages: write
@@ -18,8 +17,20 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        # This action detects your package manager (pnpm/npm/yarn) and runs 'build'
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          
+      # ⬇️ ADD THIS CRITICAL STEP TO INSTALL PNPM ⬇️
+      - name: Install pnpm
+        run: npm install -g pnpm
+      # ⬆️ END OF NEW STEP ⬆️
+
+      - name: Install dependencies and build site
+        # This action will now find pnpm in the PATH and use it to run the build.
         uses: withastro/action@v2 
 
   deploy:
