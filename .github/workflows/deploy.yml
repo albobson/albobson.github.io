@@ -18,8 +18,17 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        
+      # ⬇️ ADD THIS STEP TO DEFINE NODE.JS AND PNPM VERSION ⬇️
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Use a current LTS version, like 20
+          cache: pnpm
+      # ⬆️ END OF NEW STEP ⬆️
+
       - name: Install, build, and upload your site
-        # This action detects your package manager (pnpm/npm/yarn) and runs 'build'
+        # This action will now find the dependencies installed by pnpm
         uses: withastro/action@v2 
 
   deploy:
