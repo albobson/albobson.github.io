@@ -1,0 +1,8 @@
+Need to update the icon and social card (under public/)
+
+Add more socials? (under src\components\SocialList.astro)
+
+Do I need to change the author information to my own information? (under scr/site.config.ts)
+
+Update blog posts and stuff with .md files in src\content\post
+
