@@ -18,19 +18,22 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
         
+      # 1. Setup Node.js (which includes npm)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
           
-      # ⬇️ ADD THIS CRITICAL STEP TO INSTALL PNPM ⬇️
-      - name: Install pnpm
-        run: npm install -g pnpm
-      # ⬆️ END OF NEW STEP ⬆️
-
+      # 2. 🌟 NEW: Use the dedicated pnpm setup action 🌟
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Use a stable version of pnpm
+          run_install: false # We let withastro/action handle the install
+          
       - name: Install dependencies and build site
-        # This action will now find pnpm in the PATH and use it to run the build.
+        # This action will now find pnpm in the PATH and use it for the build.
         uses: withastro/action@v2 
 
   deploy:
